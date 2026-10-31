@@ -1,0 +1,31 @@
+﻿name: Atualizar dash
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: atualizar-dash
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Rodar uma rodada
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          DASH_PW: ${{ secrets.DASH_PW }}
+          PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
+          CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
+        run: python run.py
+
