@@ -2,7 +2,7 @@
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "3-59/10 * * * *"
   workflow_dispatch: {}
 
 concurrency:
@@ -28,4 +28,5 @@ jobs:
           PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
           CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
         run: python run.py
+
 
