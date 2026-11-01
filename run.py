@@ -1,4 +1,4 @@
-"""Uma rodada do atualizador da dash, rodando no GitHub Actions (sem o PC ligado).
+﻿"""Uma rodada do atualizador da dash, rodando no GitHub Actions (sem o PC ligado).
 Fluxo (igual ao atualizar-dash.ps1 do PC): baixa o último bloco cifrado do painel, lê o Meta, atualiza e envia de volta.
 Segredos (variáveis de ambiente): META_ACCESS_TOKEN, DASH_PW, PUSH_TOKEN, CONFIG_JSON ({arquivo: conteúdo})."""
 import os, sys, json, time, subprocess, datetime, urllib.request
@@ -28,9 +28,9 @@ def node(*args, env=None, timeout=120):
     return r.returncode == 0, (r.stdout + r.stderr).strip()
 
 
-# pausa da madrugada (02:00 às 07:00), como no PC; FORCAR=1 ignora
-if 2 <= now.hour < 7 and not os.environ.get("FORCAR"):
-    log("pausa da madrugada (02:00 às 07:00)")
+# pausa da madrugada (05:00 às 07:00), como no PC; FORCAR=1 ignora
+if 5 <= now.hour < 7 and not os.environ.get("FORCAR"):
+    log("pausa da madrugada (05:00 às 07:00)")
     sys.exit(0)
 
 # configurações que mudam pouco (contas, reatribuições, instagram dos experts, limite do cartão...) vêm do segredo CONFIG_JSON
@@ -92,3 +92,4 @@ log(out.replace("\n", " | ")[:300])
 if not ok or "push apostamuito: 200" not in out:
     log("o envio ao painel não foi confirmado")
     sys.exit(1)
+
